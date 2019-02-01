@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
     final wordPair = new WordPair.random();
     return MaterialApp(
       title: '第一次使用Flutter',
+      theme: new ThemeData(
+        primaryColor: Colors.pink,
+      ),
       home: new Scaffold(
         appBar: new AppBar(
           title: new Text('欢迎使用Flutter'),
@@ -41,8 +44,8 @@ class RandomWordsState extends State<RandomWords> {
       if (i.isOdd) return new Divider();
       final index = i ~/ 2;
       if (index >= _wps.length) {
-        _wps.addAll(generateWordPairs().take(2));
-        _wps.add(new WordPair('DZG', 'GDH'));
+        _wps.addAll(generateWordPairs().take(5));
+        //_wps.add(new WordPair('DZG', 'GDH'));
       }
       return _buildRow(_wps[index]);
     });
@@ -79,8 +82,43 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('开始生成随机名称'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
       ),
       body: _buildWps(),
+    );
+  }
+
+  void _pushSaved(){
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          final tiles = _loves.map(
+                (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _fontSize,
+                ),
+              );
+            },
+          );
+          final divided = ListTile
+              .divideTiles(
+            context: context,
+            tiles: tiles,
+          )
+              .toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Saved Suggestions'),
+            ),
+            body: new ListView(children: divided),
+          );
+        },
+      ),
     );
   }
 }
