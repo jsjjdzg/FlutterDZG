@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'catagory_route.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Hello Flutter201902"),
+          title: Text("Hello Flutter20190202"),
           actions: <Widget>[new IconButton(icon: new Icon(Icons.list))],
         ),
-        body: HelloFlutterList(),
+        body: CatagoryRoute(),
       ),
     ));
+
 
 const _rowHeight = 200.0;
 const _rowWidth = 400.0;
